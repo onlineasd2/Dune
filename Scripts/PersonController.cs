@@ -14,6 +14,7 @@ public class PersonController : MonoBehaviour {
     public GameObject activeLineRender;
     [Space]
     public ParticleSystem particle;
+    public ParticleSystem particleUltimate;
 
     [HideInInspector]
     public List<float> velocityCheck;
@@ -26,9 +27,13 @@ public class PersonController : MonoBehaviour {
 
     public bool shakeOnce = false;
 
+    public bool fullSpeed = false;
+
     public Animator anim;
 
     public bool vibrate;
+
+    float lengthLine = 1f, ts = 0.1f;
 
     void Start () {
         rg = GetComponent<Rigidbody2D>();
@@ -124,8 +129,46 @@ public class PersonController : MonoBehaviour {
             // Keyboard
         }
 
-        if (velocity > 100)
-            velocity = 100;
+        if (velocity > 80)
+            velocity = 80;
+
+        if ((velocity >= 70) && (!isGrounded))
+            fullSpeed = true;
+
+        if ((velocity < 40) && (!isGrounded))
+            fullSpeed = false;
+
+        if (fullSpeed)
+        {
+            if (lengthLine <= 50f)
+                lengthLine++;
+
+            if (!particleUltimate.isPlaying)
+                particleUltimate.Play();
+
+
+            lineRender.GetComponent<TrailRenderer>().endColor = Color.red;
+            lineRender.GetComponent<TrailRenderer>().startColor = Color.Lerp(Color.yellow, Color.red, .2f);
+
+            //Debug.Log(lineRender.GetComponent<TrailRenderer>().time);
+        }
+        else
+        {
+            particleUltimate.Stop();
+
+
+            lineRender.GetComponent<TrailRenderer>().endColor = Color.white;
+            lineRender.GetComponent<TrailRenderer>().startColor = Color.white;
+
+            if (lengthLine >= 1f)
+                lengthLine = .1f;
+
+            if (lengthLine < 1f)
+                lengthLine = .1f;
+        }
+        lineRender.GetComponent<TrailRenderer>().time = lengthLine;
+
+
     }
 
     void CheckIsDead ()
@@ -158,7 +201,7 @@ public class PersonController : MonoBehaviour {
                     Handheld.Vibrate();
             }
 
-        if (velocity > 80)
+        if (velocity > 60)
             if (GetAvg(velocityCheck) - 20 > velocity)
             {
                 particle.Play();
@@ -178,7 +221,13 @@ public class PersonController : MonoBehaviour {
             rg.mass = 10;
             rg.drag = 1;
             rg.gravityScale = 5;
-        
+
+            fullSpeed = false;
+
+            particleUltimate.Stop();
+
+            lineRender.GetComponent<TrailRenderer>().time = 0.1f;
+
             if (IsAnimationPlaying("ShakeCam"))
                 anim.SetBool("Shake", false);
 
