@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundCretor : MonoBehaviour {
+public class BackgroundCreator : MonoBehaviour {
     
     public Transform cloudPoint;
     public ScoreManager scoreManager;

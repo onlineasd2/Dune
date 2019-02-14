@@ -156,9 +156,8 @@ public class PersonController : MonoBehaviour {
         {
             particleUltimate.Stop();
 
-
-            lineRender.GetComponent<TrailRenderer>().endColor = Color.white;
-            lineRender.GetComponent<TrailRenderer>().startColor = Color.white;
+            lineRender.GetComponent<TrailRenderer>().endColor = Color.Lerp(Color.white, Color.clear, .15f);
+            lineRender.GetComponent<TrailRenderer>().startColor = Color.Lerp(Color.white, Color.clear, .15f);
 
             if (lengthLine >= 1f)
                 lengthLine = .1f;
