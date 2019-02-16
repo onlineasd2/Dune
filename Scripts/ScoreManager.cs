@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour {
 
@@ -42,7 +44,8 @@ public class ScoreManager : MonoBehaviour {
     {
         record = PlayerPrefs.GetInt("SaveRecord");
         money = PlayerPrefs.GetInt("SaveMoney");
-
+        
+        player = GameObject.FindGameObjectWithTag("Player").transform;
 
         line.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
         highLine.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
@@ -60,13 +63,11 @@ public class ScoreManager : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.Space))
             startGame = true;
+    }
 
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
-                startGame = true;
-        }
+    public void StartGameBtn ()
+    {
+        startGame = true;
     }
 
     void StartGame ()
@@ -78,6 +79,8 @@ public class ScoreManager : MonoBehaviour {
                 a += 0.05f;
 
             line.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, a);
+            
+            player = GameObject.FindGameObjectWithTag("Player").transform;
         } else
             player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;
 
@@ -118,7 +121,7 @@ public class ScoreManager : MonoBehaviour {
     // Save money
     public void SetMoney ()
     {
-        Debug.Log(recordMoney);
+        //Debug.Log(recordMoney);
 
         PlayerPrefs.SetInt("SaveMoney", recordMoney);
         PlayerPrefs.Save();
@@ -177,6 +180,12 @@ public class ScoreManager : MonoBehaviour {
         else
             once2 = false;
 
+    }
+    
+    public void ReloadLevel ()
+    {
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<PersonController>().isDead)
+            SceneManager.LoadScene(0);
     }
 
     void MoneyUpdate ()

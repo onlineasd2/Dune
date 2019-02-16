@@ -16,6 +16,8 @@ public class BackgroundCreator : MonoBehaviour {
     float t = 0;
 
     void Start () {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+
         MakeCloudInStart();
     }
 	
@@ -46,10 +48,7 @@ public class BackgroundCreator : MonoBehaviour {
     {
         if (scoreManager.startGame)
             if (player.position.x + distance >= cloudPoint.position.x)
-            {
-
-                for (float i = 100; i < player.position.x + 100; i += 20)
-                {
+                for (float i = 120; i < player.position.x + 150; i += 20)
                     if ((lastStep != i) && (i > lastStep))
                     {
                         lastStep = i;
@@ -59,12 +58,10 @@ public class BackgroundCreator : MonoBehaviour {
                         GameObject cloudCopy = Create(cloud, cloudPoint);
 
                         float rand = Random.Range(2f, 4f);
-
+                        
                         cloudCopy.transform.localScale = new Vector2(rand, rand);
                         cloudCopy.GetComponent<Cloud>().distanceDie = distanceDie;
                     }
-                }
-            }
     }
 
     GameObject Create (GameObject obj, Transform point)

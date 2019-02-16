@@ -208,6 +208,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 114101943394286300}
   isEnable: 1
+  manager: {fileID: 0}
+  shop: {fileID: 0}
+  prefab: {fileID: 1387000090372910, guid: 74658f6a1c1f3c245b934b308851f317, type: 2}
+  price: 0
 --- !u!114 &114827010995757686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -246,7 +250,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114410146764394284}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114711008496504718}
+        m_MethodName: ClickBuy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!222 &222153865225549330

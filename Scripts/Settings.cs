@@ -22,6 +22,9 @@ public class Settings : MonoBehaviour {
     {
         anim = GetComponent<Animation>();
 
+        if (!vibrate)
+            vibration.GetComponent<Image>().sprite = vibrateSpriteDisable;
+
         if (!scoreManager.GetComponent<ScoreManager>().startGame)
         {
             setting.gameObject.SetActive(true);
@@ -58,6 +61,8 @@ public class Settings : MonoBehaviour {
     {
         anim.Play("Vibrate");
 
+        vibrate = !vibrate;
+
         if (vibrate)
         {
             vibration.GetComponent<Image>().sprite = vibrateSpriteEnable;
@@ -67,7 +72,5 @@ public class Settings : MonoBehaviour {
         {
             vibration.GetComponent<Image>().sprite = vibrateSpriteDisable;
         }
-
-        vibrate = !vibrate;
     }
 }

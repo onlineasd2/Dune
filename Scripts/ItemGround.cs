@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemSkins : MonoBehaviour
-{
+public class ItemGround : MonoBehaviour {
+
 
     public Image image;
     public bool isEnable;
     public ScoreManager manager;
+    public GenerateMap generator;
     public Shop shop;
-    public GameObject prefab;
+    public Material mainMaterial;
+    public Material additionalMaterial;
 
     public int price;
 
@@ -63,25 +65,26 @@ public class ItemSkins : MonoBehaviour
 
             }
             ReloadItem();
-        } else { // Spawn player
+        }
+        else
+        { // Change ground
+            generator = GameObject.Find("Generator").GetComponent<GenerateMap>();
 
-            GameObject playerLast = GameObject.FindGameObjectWithTag("Player");
-            GameObject[] cloudList = GameObject.FindGameObjectsWithTag("Cloud");
-            GenerateMap generateMap = GameObject.Find("Generator").GetComponent<GenerateMap>();
-            ScoreManager scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-            BackgroundCreator backgroundCreator = GameObject.Find("BackgroundCreator").GetComponent<BackgroundCreator>();
-            Settings settings = GameObject.Find("Buttons").GetComponent<Settings>();
-            Destroy(playerLast);
+            GameObject[] grounds = GameObject.FindGameObjectsWithTag("Ground");
 
-            GameObject player = Instantiate(prefab, shop.SpawnPoint.position, Quaternion.identity);
+            // Start material
+            for (int i = 0; i < grounds.Length; i++)
+                GameObject.FindGameObjectsWithTag("Ground")[i].GetComponentInChildren<Renderer>().material = mainMaterial;
 
-            settings.GetComponent<Settings>().player = player.GetComponent<PersonController>();
-            generateMap.GetComponent<GenerateMap>().player = player.GetComponent<Transform>();
-            scoreManager.GetComponent<ScoreManager>().player = player.GetComponent<Transform>();
-            backgroundCreator.GetComponent<BackgroundCreator>().player = player.GetComponent<Transform>();
+            for (int i = 0; i < grounds.Length; i += 2)
+                GameObject.FindGameObjectsWithTag("Ground")[i].GetComponentInChildren<Renderer>().material = additionalMaterial;
 
-            for (int i = 0; i < cloudList.Length; i++)
-                cloudList[i].GetComponent<Cloud>().player = player;
+            // Update material
+
+            generator.GetComponent<GenerateMap>().mainMaterial = mainMaterial;
+            generator.GetComponent<GenerateMap>().additionalMaterial = additionalMaterial;
+
+            generator.GetComponent<GenerateMap>().ReMesh(generator.GetComponent<GenerateMap>().firstGround);
 
             Debug.Log("Spawned");
         }

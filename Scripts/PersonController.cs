@@ -37,6 +37,18 @@ public class PersonController : MonoBehaviour {
 
     void Start () {
         rg = GetComponent<Rigidbody2D>();
+
+        if (camera == null)
+            camera = GameObject.Find("CamContain").GetComponent<Transform>();
+
+        if (line == null)
+            line = GameObject.Find("Line").GetComponent<Transform>();
+
+        if (highLine == null)
+            highLine = GameObject.Find("HighLine").GetComponent<Transform>();
+
+        if (anim == null)
+            anim = GameObject.Find("Main Camera").GetComponent<Animator>();
     }
 	
 	void Update () {
@@ -233,12 +245,6 @@ public class PersonController : MonoBehaviour {
             shakeOnce = true;
             
         }
-    }
-
-    public void ReloadLevel ()
-    {
-        if (isDead)
-            SceneManager.LoadScene(0);
     }
 
     // Get avg value from array

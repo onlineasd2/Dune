@@ -10,6 +10,8 @@ public class Shop : MonoBehaviour {
 
     [Space]
     public GameObject content;
+    public GameObject shopTable;
+    public ScoreManager scoreManager;
 
     [Space]
     public Button btnSkins;
@@ -17,42 +19,65 @@ public class Shop : MonoBehaviour {
     public Button btnBackground;
 
     [Space]
+    public Transform SpawnPoint;
+
+    [Space]
     public List<GameObject> itemSkins;
+    public List<GameObject> itemGround;
+    public List<GameObject> itemBackground;
 
     void Start () {
+        GameObject player = Instantiate(itemSkins[0].GetComponent<ItemSkins>().prefab, SpawnPoint.position, Quaternion.identity);
 
-	}
+        Settings settings = GameObject.Find("Buttons").GetComponent<Settings>();
+
+        settings.GetComponent<Settings>().player = player.GetComponent<PersonController>();
+
+        player.GetComponent<PersonController>();
+
+        shopTable.SetActive(shopView);
+    }
 	
 	void Update () {
-		
-	}
+        if (scoreManager.startGame)
+            shopTable.SetActive(false);
+    }
 
     public void OnClickSkins ()
     {
         if (ClearItems(content))
-        {
-            foreach (var item in itemSkins)
-            {
-                GameObject instance = Instantiate(item, content.transform);
-            }
-        }
+            SetItems(itemSkins, content.transform);
     }
 
     public void OnClickGround ()
     {
-
+        if (ClearItems(content))
+            SetItems(itemGround, content.transform);
     }
 
     public void OnClickBackground ()
     {
-
+        if (ClearItems(content))
+            SetItems(itemBackground, content.transform);
     }
 
     public void OnClickShop ()
     {
         shopView = !shopView;
+        shopTable.SetActive(shopView);
     }
 
+    // Set items in content
+    bool SetItems (List<GameObject> array, Transform transform)
+    {
+        foreach (var item in array)
+        {
+            GameObject instance = Instantiate(item, transform);
+        }
+
+        return true;
+    }
+    // Clear content
     bool ClearItems (GameObject content)
     {
         if (content.GetComponentsInChildren<MonoBehaviour>().Length != 0)
