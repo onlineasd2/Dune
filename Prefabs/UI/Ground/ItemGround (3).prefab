@@ -178,12 +178,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 114717394210926310}
-  isEnable: 0
+  isEnable: 1
   manager: {fileID: 0}
   generator: {fileID: 0}
   shop: {fileID: 0}
-  mainMaterial: {fileID: 2100000, guid: 539be28aa8a485340aac109b94ed2cea, type: 2}
-  additionalMaterial: {fileID: 2100000, guid: c8f2e0ae265062f40b4c303a8a4464ea, type: 2}
+  mainMaterial: {fileID: 2100000, guid: f885cdd7fa9966b499830499805bc5f9, type: 2}
+  additionalMaterial: {fileID: 2100000, guid: 74b6ff14ff18ab343ad64b965d46b6e6, type: 2}
   price: 200
 --- !u!114 &114717394210926310
 MonoBehaviour:
