@@ -92,13 +92,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 775be1d87c078c54d8446e9110c17baa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 1
   image: {fileID: 114598645098453828}
-  isEnable: 1
+  isEnable: 0
   manager: {fileID: 0}
   imageOnBackground: {fileID: 0}
   shop: {fileID: 0}
   texturePrefab: {fileID: 21300000, guid: 20ff65a613d62574988eff7a8c99c2f9, type: 3}
-  price: 300
+  price: 100
 --- !u!114 &114069026130737376
 MonoBehaviour:
   m_ObjectHideFlags: 1

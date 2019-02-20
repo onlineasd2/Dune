@@ -177,14 +177,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24984192329bc1447b3b132078c6dc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 3
   image: {fileID: 114717394210926310}
-  isEnable: 1
+  isEnable: 0
   manager: {fileID: 0}
   generator: {fileID: 0}
   shop: {fileID: 0}
   mainMaterial: {fileID: 2100000, guid: f885cdd7fa9966b499830499805bc5f9, type: 2}
   additionalMaterial: {fileID: 2100000, guid: 74b6ff14ff18ab343ad64b965d46b6e6, type: 2}
-  price: 200
+  price: 1500
 --- !u!114 &114717394210926310
 MonoBehaviour:
   m_ObjectHideFlags: 1

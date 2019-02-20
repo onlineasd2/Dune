@@ -927,6 +927,8 @@ MonoBehaviour:
   - {fileID: 1339586673521186, guid: cb6b5c7e31f74b14292ed170d0d4cb01, type: 2}
   - {fileID: 1475946595926020, guid: ca572bd8cbd431546885be065255d4a3, type: 2}
   - {fileID: 1566166254842504, guid: 4fab209e12e69dc448e049a813b6eb5e, type: 2}
+  - {fileID: 1812525646765352, guid: 17516baae33022f429b4cedab243133c, type: 2}
+  - {fileID: 1241367871953838, guid: ca57678797d61f74d865822005c73f8f, type: 2}
   itemGround:
   - {fileID: 1262580296081358, guid: fdfa41ab78c2b6345bc40d0e8829cad9, type: 2}
   - {fileID: 1012147372879330, guid: cb75dce1e16d2314fa91e0ec22431493, type: 2}
@@ -4264,6 +4266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 519420031}
+  spriteBg: {fileID: 0}
 --- !u!1 &1564964113
 GameObject:
   m_ObjectHideFlags: 0

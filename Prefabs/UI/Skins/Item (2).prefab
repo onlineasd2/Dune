@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -119,12 +119,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ddcf2d6f4e9b8545a1c0a71967d857a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 2
   image: {fileID: 114292798186845142}
   isEnable: 0
   manager: {fileID: 0}
   shop: {fileID: 0}
   prefab: {fileID: 1544027171469998, guid: 9beddd0837de1bc429ee7c5ea9b13e95, type: 2}
-  price: 200
+  price: 500
 --- !u!114 &114292798186845142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -326,7 +327,7 @@ RectTransform:
   m_GameObject: {fileID: 1475946595926020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0000168, y: 1.0000168, z: 1.0000168}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224702108300153570}
   - {fileID: 224067799643756912}

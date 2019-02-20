@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ItemGround : MonoBehaviour {
 
 
+    public int id;
     public Image image;
     public bool isEnable;
     public ScoreManager manager;
@@ -85,8 +86,6 @@ public class ItemGround : MonoBehaviour {
             generator.GetComponent<GenerateMap>().additionalMaterial = additionalMaterial;
 
             generator.GetComponent<GenerateMap>().ReMesh(generator.GetComponent<GenerateMap>().firstGround);
-
-            Debug.Log("Spawned");
         }
     }
 }

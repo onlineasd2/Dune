@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ItemSkins : MonoBehaviour
 {
 
+    public int id;
     public Image image;
     public bool isEnable;
     public ScoreManager manager;
@@ -18,6 +19,7 @@ public class ItemSkins : MonoBehaviour
     {
         manager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         shop = GameObject.Find("Buttons").GetComponent<Shop>();
+
         ReloadItem();
     }
 
@@ -60,30 +62,37 @@ public class ItemSkins : MonoBehaviour
                 PlayerPrefs.Save();
 
                 isEnable = true;
-
             }
+
             ReloadItem();
         } else { // Spawn player
 
-            GameObject playerLast = GameObject.FindGameObjectWithTag("Player");
-            GameObject[] cloudList = GameObject.FindGameObjectsWithTag("Cloud");
-            GenerateMap generateMap = GameObject.Find("Generator").GetComponent<GenerateMap>();
-            ScoreManager scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-            BackgroundCreator backgroundCreator = GameObject.Find("BackgroundCreator").GetComponent<BackgroundCreator>();
-            Settings settings = GameObject.Find("Buttons").GetComponent<Settings>();
-            Destroy(playerLast);
+            ReplacePlayer();
 
-            GameObject player = Instantiate(prefab, shop.SpawnPoint.position, Quaternion.identity);
-
-            settings.GetComponent<Settings>().player = player.GetComponent<PersonController>();
-            generateMap.GetComponent<GenerateMap>().player = player.GetComponent<Transform>();
-            scoreManager.GetComponent<ScoreManager>().player = player.GetComponent<Transform>();
-            backgroundCreator.GetComponent<BackgroundCreator>().player = player.GetComponent<Transform>();
-
-            for (int i = 0; i < cloudList.Length; i++)
-                cloudList[i].GetComponent<Cloud>().player = player;
-
-            Debug.Log("Spawned");
+            PlayerPrefs.SetInt("LastItemSkins", id);
+            PlayerPrefs.Save();
         }
+    }
+
+    public void ReplacePlayer ()
+    {
+        GameObject playerLast = GameObject.FindGameObjectWithTag("Player");
+        GameObject[] cloudList = GameObject.FindGameObjectsWithTag("Cloud");
+        GenerateMap generateMap = GameObject.Find("Generator").GetComponent<GenerateMap>();
+        ScoreManager scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        BackgroundCreator backgroundCreator = GameObject.Find("BackgroundCreator").GetComponent<BackgroundCreator>();
+        Settings settings = GameObject.Find("Buttons").GetComponent<Settings>();
+        Destroy(playerLast);
+
+        GameObject player = Instantiate(prefab, shop.SpawnPoint.position, Quaternion.identity);
+
+        settings.GetComponent<Settings>().player = player.GetComponent<PersonController>();
+        generateMap.GetComponent<GenerateMap>().player = player.GetComponent<Transform>();
+        scoreManager.GetComponent<ScoreManager>().player = player.GetComponent<Transform>();
+        backgroundCreator.GetComponent<BackgroundCreator>().player = player.GetComponent<Transform>();
+
+        for (int i = 0; i < cloudList.Length; i++)
+            cloudList[i].GetComponent<Cloud>().player = player;
+
     }
 }

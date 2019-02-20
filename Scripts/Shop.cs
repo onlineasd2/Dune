@@ -26,8 +26,9 @@ public class Shop : MonoBehaviour {
     public List<GameObject> itemGround;
     public List<GameObject> itemBackground;
 
-    void Start () {
-        GameObject player = Instantiate(itemSkins[0].GetComponent<ItemSkins>().prefab, SpawnPoint.position, Quaternion.identity);
+    void Start ()
+    {
+        GameObject player = Instantiate(itemSkins[LastSlected()].GetComponent<ItemSkins>().prefab, SpawnPoint.position, Quaternion.identity);
 
         Settings settings = GameObject.Find("Buttons").GetComponent<Settings>();
 
@@ -35,12 +36,20 @@ public class Shop : MonoBehaviour {
 
         player.GetComponent<PersonController>();
 
+
         shopTable.SetActive(shopView);
     }
-	
-	void Update () {
+
+    void Update () {
         if (scoreManager.startGame)
             shopTable.SetActive(false);
+    }
+
+    public int LastSlected ()
+    {
+        int lastSkins = PlayerPrefs.GetInt("LastItemSkins");
+
+        return lastSkins;
     }
 
     public void OnClickSkins ()

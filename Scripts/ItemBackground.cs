@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ItemBackground : MonoBehaviour {
 
 
+    public int id;
     public Image image;
     public bool isEnable;
     public ScoreManager manager;
