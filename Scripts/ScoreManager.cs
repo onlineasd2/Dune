@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour {
@@ -28,6 +27,11 @@ public class ScoreManager : MonoBehaviour {
     public Button btnReload;
 
     [Space]
+    public AudioClip bonusSound;
+    public AudioClip bonusSound1;
+    public AudioClip startGameSound;
+
+    [Space]
     public Animator popUpClip;
 
     bool once1 = false;
@@ -39,6 +43,7 @@ public class ScoreManager : MonoBehaviour {
 
     [Space]
     public bool startGame;
+    bool onceSound = false;
 
     void Start ()
     {
@@ -74,6 +79,16 @@ public class ScoreManager : MonoBehaviour {
     {
         if (startGame)
         {
+            if (!onceSound)
+            {
+                if (PlayerPrefs.GetInt("Mute") > 0)
+                {
+                    GetComponent<AudioSource>().clip = startGameSound;
+                    GetComponent<AudioSource>().Play();
+                    onceSound = true;
+                }
+            }
+
             player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
             if (a <= 1)
                 a += 0.05f;
@@ -152,6 +167,9 @@ public class ScoreManager : MonoBehaviour {
         {
             if (!once1)
             {
+                if (PlayerPrefs.GetInt("Mute") > 0)
+                    GetComponent<AudioSource>().PlayOneShot(bonusSound);
+
                 int v = 0;
                 if (player.GetComponent<PersonController>().velocity <= 45)
                     v = GetScore(initialValue);
@@ -172,6 +190,9 @@ public class ScoreManager : MonoBehaviour {
         {
             if (!once2)
             {
+                if (PlayerPrefs.GetInt("Mute") > 0)
+                    GetComponent<AudioSource>().PlayOneShot(bonusSound1);
+
                 score += GetScore(initialValue * 8);
                 PopUpScore(initialValue * 8, true);
                 once2 = true;

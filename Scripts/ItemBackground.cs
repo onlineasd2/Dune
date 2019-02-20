@@ -21,6 +21,17 @@ public class ItemBackground : MonoBehaviour {
         manager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         shop = GameObject.Find("Buttons").GetComponent<Shop>();
         imageOnBackground = GameObject.Find("Background").GetComponent<Background>();
+
+        int butItemSkins = PlayerPrefs.GetInt("BuyItemBackground" + id);
+
+        if (butItemSkins > 0)
+            isEnable = true;
+        else
+            isEnable = false;
+
+        if (price <= 0)
+            isEnable = true;
+
         ReloadItem();
     }
 
@@ -64,12 +75,18 @@ public class ItemBackground : MonoBehaviour {
 
                 isEnable = true;
 
+                PlayerPrefs.SetInt("BuyItemBackground" + id, 1);
+                PlayerPrefs.Save();
             }
             ReloadItem();
         }
         else
         { // Change ground
+
             imageOnBackground.spriteBg = texturePrefab;
+
+            PlayerPrefs.SetInt("LastItemBackground", id);
+            PlayerPrefs.Save();
         }
     }
 }

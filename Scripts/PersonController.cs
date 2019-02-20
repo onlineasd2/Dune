@@ -12,6 +12,11 @@ public class PersonController : MonoBehaviour {
     public int coins;
     public GameObject lineRender;
     public GameObject activeLineRender;
+
+    [Space]
+    public AudioClip hitSound;
+    public AudioClip deadSound;
+
     [Space]
     public ParticleSystem particle;
     public ParticleSystem particleUltimate;
@@ -34,6 +39,8 @@ public class PersonController : MonoBehaviour {
     public bool vibrate;
 
     float lengthLine = 1f, ts = 0.1f;
+
+    int collDeath;
 
     void Start () {
         rg = GetComponent<Rigidbody2D>();
@@ -225,6 +232,18 @@ public class PersonController : MonoBehaviour {
         {
             anim.SetBool("Shake", true);
 
+            collDeath = PlayerPrefs.GetInt("saveCountOfDeaths");
+            collDeath++;
+            PlayerPrefs.SetInt("saveCountOfDeaths", collDeath);
+            PlayerPrefs.Save();
+
+            if (PlayerPrefs.GetInt("Mute") > 0)
+            {
+                // Sound
+                GetComponent<AudioSource>().clip = deadSound;
+                GetComponent<AudioSource>().pitch = 0.3f;
+                GetComponent<AudioSource>().Play();
+            }
         }
 
         if (isDead)
@@ -266,7 +285,15 @@ public class PersonController : MonoBehaviour {
             isGrounded = true;
             // Particle System is play
             if ((other.relativeVelocity.magnitude >= 30) && (velocity < 60))
+            {
                 particle.Play();
+                if (PlayerPrefs.GetInt("Mute") > 0)
+                {
+                    GetComponent<AudioSource>().clip = hitSound;
+                    GetComponent<AudioSource>().pitch = 0.3f;
+                    GetComponent<AudioSource>().Play();
+                }
+            }
         }
     }
 

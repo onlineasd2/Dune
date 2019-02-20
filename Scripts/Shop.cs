@@ -28,6 +28,8 @@ public class Shop : MonoBehaviour {
 
     void Start ()
     {
+        SetItems(itemSkins, content.transform);
+
         GameObject player = Instantiate(itemSkins[LastSlected()].GetComponent<ItemSkins>().prefab, SpawnPoint.position, Quaternion.identity);
 
         Settings settings = GameObject.Find("Buttons").GetComponent<Settings>();
@@ -35,7 +37,6 @@ public class Shop : MonoBehaviour {
         settings.GetComponent<Settings>().player = player.GetComponent<PersonController>();
 
         player.GetComponent<PersonController>();
-
 
         shopTable.SetActive(shopView);
     }

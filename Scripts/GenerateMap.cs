@@ -24,6 +24,12 @@ public class GenerateMap : MonoBehaviour {
 
 	void Start ()
     {
+        List<GameObject> groundList = GameObject.Find("Buttons").GetComponent<Shop>().itemGround;
+
+        int id = PlayerPrefs.GetInt("LastItemGround");
+
+        mainMaterial = groundList[id].GetComponent<ItemGround>().mainMaterial;
+        additionalMaterial = groundList[id].GetComponent<ItemGround>().additionalMaterial;
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
 

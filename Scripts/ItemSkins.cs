@@ -19,6 +19,16 @@ public class ItemSkins : MonoBehaviour
     {
         manager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         shop = GameObject.Find("Buttons").GetComponent<Shop>();
+        
+        int butItemSkins = PlayerPrefs.GetInt("BuyItemSkins" + id);
+
+        if (butItemSkins > 0)
+            isEnable = true;
+        else
+            isEnable = false;
+
+        if (price <= 0)
+            isEnable = true;
 
         ReloadItem();
     }
@@ -35,8 +45,7 @@ public class ItemSkins : MonoBehaviour
                 if (item.name == "Button")
                     item.GetComponentInChildren<Text>().text = price.ToString();
             }
-        }
-        else
+        } else
             foreach (Image item in GetComponentsInChildren<Image>())
             {
                 if (item.name == "Image")
@@ -45,7 +54,6 @@ public class ItemSkins : MonoBehaviour
                 if (item.name == "Button")
                     item.GetComponentInChildren<Text>().text = "Select";
             }
-
     }
 
     public void ClickBuy ()
@@ -62,6 +70,9 @@ public class ItemSkins : MonoBehaviour
                 PlayerPrefs.Save();
 
                 isEnable = true;
+                
+                PlayerPrefs.SetInt("BuyItemSkins" + id, 1);
+                PlayerPrefs.Save();
             }
 
             ReloadItem();

@@ -21,6 +21,17 @@ public class ItemGround : MonoBehaviour {
     {
         manager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         shop = GameObject.Find("Buttons").GetComponent<Shop>();
+
+        int butItemSkins = PlayerPrefs.GetInt("BuyItemGround" + id);
+
+        if (butItemSkins > 0)
+            isEnable = true;
+        else
+            isEnable = false;
+
+        if (price <= 0)
+            isEnable = true;
+
         ReloadItem();
     }
 
@@ -64,6 +75,8 @@ public class ItemGround : MonoBehaviour {
 
                 isEnable = true;
 
+                PlayerPrefs.SetInt("BuyItemGround" + id, 1);
+                PlayerPrefs.Save();
             }
             ReloadItem();
         }
@@ -81,11 +94,13 @@ public class ItemGround : MonoBehaviour {
                 GameObject.FindGameObjectsWithTag("Ground")[i].GetComponentInChildren<Renderer>().material = additionalMaterial;
 
             // Update material
-
             generator.GetComponent<GenerateMap>().mainMaterial = mainMaterial;
             generator.GetComponent<GenerateMap>().additionalMaterial = additionalMaterial;
 
             generator.GetComponent<GenerateMap>().ReMesh(generator.GetComponent<GenerateMap>().firstGround);
+            
+            PlayerPrefs.SetInt("LastItemGround", id);
+            PlayerPrefs.Save();
         }
     }
 }

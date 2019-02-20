@@ -7,14 +7,20 @@ public class Settings : MonoBehaviour {
 
     public Button setting;
     public Button shop;
-    public Button vibration;
+    public Button vibrationBtn;
+    public Button muteBtn;
     public bool vibrate = false;
+    public bool mute = false;
     public Sprite vibrateSpriteEnable;
     public Sprite vibrateSpriteDisable;
+    public Sprite muteSpriteEnable;
+    public Sprite muteSpriteDisable;
     public ScoreManager scoreManager;
     public PersonController player;
     bool change = true;
     Sprite btn;
+
+    public AudioClip sound;
 
     Animation anim;
 
@@ -23,13 +29,14 @@ public class Settings : MonoBehaviour {
         anim = GetComponent<Animation>();
 
         if (!vibrate)
-            vibration.GetComponent<Image>().sprite = vibrateSpriteDisable;
+            vibrationBtn.GetComponent<Image>().sprite = vibrateSpriteDisable;
 
         if (!scoreManager.GetComponent<ScoreManager>().startGame)
         {
             setting.gameObject.SetActive(true);
             shop.gameObject.SetActive(true);
-            vibration.gameObject.SetActive(false);
+            vibrationBtn.gameObject.SetActive(false);
+            muteBtn.gameObject.SetActive(false);
         }
     }
 
@@ -39,7 +46,8 @@ public class Settings : MonoBehaviour {
         {
             setting.gameObject.SetActive(false);
             shop.gameObject.SetActive(false);
-            vibration.gameObject.SetActive(false);
+            vibrationBtn.gameObject.SetActive(false);
+            muteBtn.gameObject.SetActive(false);
         }
 
         player.GetComponent<PersonController>().vibrate = vibrate;
@@ -52,8 +60,9 @@ public class Settings : MonoBehaviour {
         else
             anim.Play("SettingsRight");
 
-        vibration.gameObject.SetActive(change);
-        
+        vibrationBtn.gameObject.SetActive(change);
+        muteBtn.gameObject.SetActive(change);
+
         change = !change;
     }
     
@@ -65,12 +74,35 @@ public class Settings : MonoBehaviour {
 
         if (vibrate)
         {
-            vibration.GetComponent<Image>().sprite = vibrateSpriteEnable;
+            vibrationBtn.GetComponent<Image>().sprite = vibrateSpriteEnable;
             Handheld.Vibrate();
         }
         else
         {
-            vibration.GetComponent<Image>().sprite = vibrateSpriteDisable;
+            vibrationBtn.GetComponent<Image>().sprite = vibrateSpriteDisable;
+        }
+    }
+
+    public void OnMute ()
+    {
+        anim.Play("Vibrate");
+
+        mute = !mute;
+
+        if (mute)
+        {
+            muteBtn.GetComponent<Image>().sprite = muteSpriteDisable;
+            
+            PlayerPrefs.SetInt("Mute", 1);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            muteBtn.GetComponent<Image>().sprite = muteSpriteEnable;
+            GetComponent<AudioSource>().PlayOneShot(sound);
+
+            PlayerPrefs.SetInt("Mute", 0);
+            PlayerPrefs.Save();
         }
     }
 }
